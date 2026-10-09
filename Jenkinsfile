@@ -33,11 +33,11 @@ stage('Docker Login') {
 
 stage('Deploy to Kubernetes') {
     steps {
-        bat 'whoami'
-        bat 'where kubectl'
-        bat 'kubectl config current-context'
-        bat 'kubectl cluster-info'
-        bat 'kubectl get nodes'
+        bat 'kubectl --kubeconfig "C:\\Windows\\System32\\config\\systemprofile\\.kube\\config" config current-context'
+        bat 'kubectl --kubeconfig "C:\\Windows\\System32\\config\\systemprofile\\.kube\\config" get nodes'
+        bat 'kubectl --kubeconfig "C:\\Windows\\System32\\config\\systemprofile\\.kube\\config" apply -f deployment.yaml'
+        bat 'kubectl --kubeconfig "C:\\Windows\\System32\\config\\systemprofile\\.kube\\config" apply -f service.yaml'
+        bat 'kubectl --kubeconfig "C:\\Windows\\System32\\config\\systemprofile\\.kube\\config" rollout status deployment/kubedemoapp'
     }
 }
 
