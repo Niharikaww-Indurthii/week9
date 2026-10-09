@@ -27,7 +27,7 @@ stage('Docker Login') {
             steps {
                 echo "Push Docker Image to Docker Hub"
                 bat "docker tag kubedemoapp:v1 nihaaaa34/sample:kubeimage1"
-                bat "docker push nihaaaa/sample:kubeimage1"
+                bat "docker push nihaaaa34/sample:kubeimage1"
             }
         }
 
