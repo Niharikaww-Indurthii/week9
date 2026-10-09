@@ -31,12 +31,17 @@ stage('Docker Login') {
             }
         }
 
-        stage('Deploy to Kubernetes') {
-            steps {
-                bat "kubectl apply -f deployment.yaml --validate=false"
-                bat "kubectl apply -f service.yaml"
-            }
-        }
+        ```groovy
+stage('Deploy to Kubernetes') {
+    steps {
+        bat 'whoami'
+        bat 'where kubectl'
+        bat 'kubectl config current-context'
+        bat 'kubectl cluster-info'
+        bat 'kubectl get nodes'
+    }
+}
+```
     }
 
     post {
