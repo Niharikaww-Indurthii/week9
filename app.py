@@ -19,7 +19,7 @@ def register():
 
     if request.method == 'POST':
         name = request.form['name']
-        return render_template('sucess.html', name=name)
+        return render_template('success.html', name=name)
 
     return render_template('register.html')
 
