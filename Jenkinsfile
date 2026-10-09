@@ -31,7 +31,6 @@ stage('Docker Login') {
             }
         }
 
-        ```groovy
 stage('Deploy to Kubernetes') {
     steps {
         bat 'whoami'
@@ -41,7 +40,7 @@ stage('Deploy to Kubernetes') {
         bat 'kubectl get nodes'
     }
 }
-```
+
     }
 
     post {
