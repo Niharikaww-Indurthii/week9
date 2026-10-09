@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
 
@@ -9,38 +10,28 @@ pipeline {
             }
         }
 
-       
-stage('Docker Login') {
-    steps {
-        withCredentials([usernamePassword(
-            credentialsId: 'dockerhub-creds',
-            usernameVariable: 'DOCKERHUB_USER',
-            passwordVariable: 'DOCKERHUB_TOKEN'
-        )]) {
-            bat 'echo %DOCKERHUB_TOKEN%| docker login -u "%DOCKERHUB_USER%" --password-stdin'
+        stage('Docker Login') {
+            steps {
+                bat 'docker login -u bhavani765 -p bhanu@123'
+            }
         }
-    }
-}
-
 
         stage('Push Docker Image to Docker Hub') {
             steps {
-                echo "Push Docker Image to Docker Hub"
+                echo "push Docker Image to Docker Hub"
                 bat "docker tag kubedemoapp:v1 nihaaaa34/sample:kubeimage1"
+
                 bat "docker push nihaaaa34/sample:kubeimage1"
             }
         }
 
-stage('Deploy to Kubernetes') {
-    steps {
-        bat 'kubectl --kubeconfig "C:\\Windows\\System32\\config\\systemprofile\\.kube\\config" config current-context'
-        bat 'kubectl --kubeconfig "C:\\Windows\\System32\\config\\systemprofile\\.kube\\config" get nodes'
-        bat 'kubectl --kubeconfig "C:\\Windows\\System32\\config\\systemprofile\\.kube\\config" apply -f deployment.yaml'
-        bat 'kubectl --kubeconfig "C:\\Windows\\System32\\config\\systemprofile\\.kube\\config" apply -f service.yaml'
-        bat 'kubectl --kubeconfig "C:\\Windows\\System32\\config\\systemprofile\\.kube\\config" rollout status deployment/kubedemoapp'
-    }
-}
-
+        stage('Deploy to Kubernetes') {
+            steps {
+                // apply deployment & service
+                bat 'kubectl apply -f deployment.yaml --validate=false'
+                bat 'kubectl apply -f service.yaml'
+            }
+        }
     }
 
     post {
